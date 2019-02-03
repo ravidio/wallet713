@@ -15,3 +15,12 @@ matrix:
     - os: linux
       dist: trusty
     - os: osx
+
+deploy:
+  provider: releases
+  api_key: "ade4626eeb6c7ca701cd863886abdf8ed4c22f37"
+  file_glob: true
+  file: target/release/wallet713-*.tgz*
+  skip_cleanup: true
+  on:
+    repo: ravidio/wallet713
