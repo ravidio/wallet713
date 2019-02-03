@@ -16,6 +16,15 @@ matrix:
       dist: trusty
     - os: osx
 
+before_deploy:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      cargo clean && cargo build --release && ./.auto-release.sh;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update;
+      cargo clean && cargo build --release && ./.auto-release.sh;
+    fi
+    
 deploy:
   provider: releases
   api_key: "$GITHUB_OAUTH_TOKEN"
@@ -24,3 +33,5 @@ deploy:
   skip_cleanup: true
   on:
     repo: ravidio/wallet713
+    tags: true
+    
